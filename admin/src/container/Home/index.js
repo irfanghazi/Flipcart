@@ -6,6 +6,7 @@ const Home = () => {
     return (
         <>
            <Layout />
+           <h1>Hii</h1>
         </>
     )
 }
