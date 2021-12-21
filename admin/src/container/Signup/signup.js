@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-//import Input from "../../components/UI/Input";
+import { isUserLoggedIn } from "../../redux/actions";
+import { Redirect } from "react-router";
+import { signupAction } from "../../redux/actions";
+
 
 const Signup = () => {
 
@@ -10,11 +14,35 @@ const Signup = () => {
   const [ email, setEmail] = useState('')
   const [password,setPassword] = useState('')
 
-const signupHandler = (e)=>{
+  const dispatch = useDispatch()
+  const authState = useSelector(state => state.userLoginReducer)
+  const {authenticate} = authState
+
+  useEffect(() => {
+    if(!authenticate){
+      dispatch(isUserLoggedIn())
+    }
+ }, [])
+
+  // Redirecting Signup user to Home page after authentication
+  if (authenticate) {
+    return <Redirect to={"/"} />;
+  }
+
+const userSignUp = (e)=>{
   e.preventDefault()
-  const user = {firstName,lastName,email,password}
-  console.log(user)
+  const user = {
+    firstName,lastName,email,password
+  }
+  console.log("user", user)
+  dispatch(signupAction(user))
 }
+
+// const signupHandler = (e)=>{
+//   e.preventDefault()
+//   const user = {firstName,lastName,email,password}
+
+// }
 
   return (
     <>
@@ -22,13 +50,12 @@ const signupHandler = (e)=>{
       <Container>
         <Row style={{ marginTop: "60px" }}>
           <Col md={{ span: 6, offset: 3 }}>
-            <div>
+            <Form onSubmit = {userSignUp}>
               <Row>
 
                 <Col md = {6}>
                 <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>First Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter Firstname"
@@ -41,7 +68,6 @@ const signupHandler = (e)=>{
                 <Col md = {6}>
                 <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter Lastname"
@@ -56,7 +82,6 @@ const signupHandler = (e)=>{
 
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="Enter email"
@@ -66,7 +91,6 @@ const signupHandler = (e)=>{
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password"
@@ -75,10 +99,10 @@ const signupHandler = (e)=>{
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit" onClick = {signupHandler}>
+              <Button variant="primary" type="submit" >
                 Submit
               </Button>
-            </ div>
+            </ Form>
           </Col>
         </Row>
       </Container>

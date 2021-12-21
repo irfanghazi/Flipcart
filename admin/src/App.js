@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./container/Home";
-import Signup from "./container/Signup";
-import Signin from "./container/Signin";
+import Home from "./container/Home/home"
+import Signin from "./container/Signin/signin"
+import Signup from "./container/Signup/signup"
 import PrivateRoute from "./components/HOC/PrivateRoute";
 
 function App() {

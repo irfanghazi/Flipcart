@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
         default:'user'
     },
     contactNumber:{type:String},
-    profilePicture:{type:String}
+    profilePicture:{type:Number}
 }, {timestamps:true})
 
 userSchema.virtual('password').set(function(password){

@@ -13,14 +13,14 @@ const initialState = {
 
 export const userLoginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case authConstant.LOGIN_REQUEST:
+    case authConstant.ADMIN_LOGIN_REQUEST:
       return {
         ...state,
         authenticating:true,
         authenticate:false
       };
 
-    case authConstant.LOGIN_SUCCESS:
+    case authConstant.ADMIN_LOGIN_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
@@ -28,6 +28,11 @@ export const userLoginReducer = (state = initialState, action) => {
         authenticating:false,
         authenticate:true
       };
+
+      case authConstant.ADMIN_LOGOUT_REQUEST:
+        return{
+          ...initialState
+        }
     default:
       return state;
   }

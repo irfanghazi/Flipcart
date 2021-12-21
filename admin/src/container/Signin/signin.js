@@ -2,16 +2,14 @@ import React, { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { offset } from "dom-helpers";
-//import Input from "../../components/UI/Input";
-import { login } from "../../actions/auth.action";
+import { login } from "../../redux/actions/auth.action";
 import { Redirect } from "react-router";
-import {isUserLoggedIn} from "../../actions/auth.action"
+import {isUserLoggedIn} from "../../redux/actions/auth.action"
 
 const Signin = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+
 
   const authState = useSelector((state) => state.userLoginReducer);
   const { authenticate } = authState;
@@ -24,6 +22,11 @@ const Signin = (props) => {
      }
   }, [])
 
+   // Redirecting Login user to Home page after authentication
+   if (authenticate) {
+    return <Redirect to={"/"} />;
+  }
+
   
   const userLogin = (e) => {
     e.preventDefault();
@@ -34,10 +37,7 @@ const Signin = (props) => {
     console.log(user);
     dispatch(login(user));
   };
-  // Redirecting Login user to Home page after authentication
-  if (authenticate) {
-    return <Redirect to={"/"} />;
-  }
+ 
 
  
 
@@ -50,7 +50,6 @@ const Signin = (props) => {
             <Form onSubmit={userLogin}>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
@@ -63,7 +62,6 @@ const Signin = (props) => {
 
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Password</Form.Label>
                 <Form.Control
