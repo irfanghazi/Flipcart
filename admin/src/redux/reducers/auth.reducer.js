@@ -9,6 +9,9 @@ const initialState = {
   },
   authenticate: false,
   authenticating: false,
+  loading:false,
+  error:null,
+  message:''
 };
 
 export const userLoginReducer = (state = initialState, action) => {
@@ -31,8 +34,21 @@ export const userLoginReducer = (state = initialState, action) => {
 
       case authConstant.ADMIN_LOGOUT_REQUEST:
         return{
-          ...initialState
+          ...initialState,
+          loading:true
         }
+
+        case authConstant.ADMIN_LOGOUT_SUCCESS:
+          return{
+            ...state,
+            }
+
+          case authConstant.ADMIN_LOGOUT_FAIL:
+            return {
+              ...state,
+              loading:false
+
+            }
     default:
       return state;
   }

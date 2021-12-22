@@ -6,8 +6,7 @@ export const login = (user) => async (dispatch) => {
   dispatch({ type: authConstant.ADMIN_LOGIN_REQUEST });
 
   const res = await axiosInstance.post("/admin/signin", { ...user });
-  console.log(res)
-
+ 
   if (res.status === 200) {
     const { token, user } = res.data;
     localStorage.setItem("token", token);
@@ -34,9 +33,16 @@ export const isUserLoggedIn = () => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => async(dispatch) => {
-localStorage.clear()
+export const logoutUser = () => async (dispatch) => {
   dispatch({type:authConstant.ADMIN_LOGOUT_REQUEST})
+  const res  = await axiosInstance.post("/admin/signout")
+  if(res.status === 200){
+    localStorage.clear()
+    dispatch({type:authConstant.ADMIN_LOGOUT_SUCCESS})
+  }else{
+      dispatch({type:authConstant.ADMIN_LOGOUT_FAIL, payload:{error:"Failed to logout "}})
+    }
+  
 }
 
 

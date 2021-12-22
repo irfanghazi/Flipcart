@@ -13,8 +13,7 @@ const {authenticate} = authState
 
 const logout = ()=>{
   dispatch(logoutUser())
-  window.location.href = '/signin'
- }
+  }
 
   const renderNonLoggedInLinks = () => {
     return ( <Nav>
@@ -36,9 +35,8 @@ const logout = ()=>{
        </li>
     </Nav>
     )
-   
+   };
 
-  };
   return (
     <>
       <Navbar

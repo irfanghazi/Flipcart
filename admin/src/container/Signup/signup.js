@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { isUserLoggedIn } from "../../redux/actions";
 import { Redirect } from "react-router";

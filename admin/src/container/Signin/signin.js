@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { login } from "../../redux/actions/auth.action";
 import { Redirect } from "react-router";
@@ -34,13 +34,9 @@ const Signin = (props) => {
       email,
       password,
     };
-    console.log(user);
     dispatch(login(user));
   };
  
-
- 
-
   return (
     <div>
       <Layout />
