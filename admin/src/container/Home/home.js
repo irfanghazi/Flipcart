@@ -6,9 +6,9 @@ import { isUserLoggedIn } from '../../redux/actions'
 import { Redirect } from 'react-router'
 import './style.css'
 import { NavLink } from 'react-router-dom'
-import Sidebar from '../Sidebar/Sidebar'
 
-const Home = () => {
+
+const Home = (props) => {
 
     const dispatch = useDispatch();
     const authState = useSelector(state => state.userLoginReducer)
@@ -19,32 +19,35 @@ const Home = () => {
        dispatch(isUserLoggedIn())
      }
   }, [])
+  console.log("Hiii")
 
 //    // Redirecting Login user to Home page after authentication
 //    if (authenticate) {
 //     return <Redirect to={"/"} />;
 //   }
     return (
-        
-        <>
-           <Layout />
-           <Sidebar/>
-           {/* <Container fluid>
+    
+       <Layout  >
+           <Container fluid>
                <Row>
                    <Col md = {2} className = 'sidebar'>
                        <ul>
-                           <li><NavLink to = '/'>Home</NavLink></li>
-                           <li><NavLink to = '/product'>Products</NavLink></li>
-                           <li><NavLink to = '/order'>Orders</NavLink></li>
+                           <li><NavLink to = {'/'}>Home</NavLink></li>
+                           <li><NavLink to = {'/category'}>Category</NavLink></li>
+
+                           <li><NavLink to = {'/product'}>Products</NavLink></li>
+                           <li><NavLink to = {'/order'}>Orders</NavLink></li>
                         </ul>
                    </Col>
 
                    <Col md = {10} style = {{marginLeft:'auto'}}>container</Col>
              </Row>
-           </Container> */}
-          
-        </>
-    )
+           </Container>  
+           </Layout>
+      
+      
+       
+          )
 }
 
 export default Home

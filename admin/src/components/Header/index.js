@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { logoutUser } from "../../redux/actions";
+import { Redirect } from "react-router";
 
 
 const Header = () => {
@@ -32,6 +33,7 @@ const logout = ()=>{
       <Nav>
        <li className="nav-item">
          <span className="nav-link" onClick = {logout} style = {{cursor:'pointer'}}> Signout </span>
+       
        </li>
     </Nav>
     )

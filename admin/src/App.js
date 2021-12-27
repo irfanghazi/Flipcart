@@ -16,7 +16,7 @@ function App() {
         <Router>
           <Switch>
             <PrivateRoute path="/" exact component={Home} />
-            <PrivateRoute path="/category" exact component={Category} />
+            <PrivateRoute path="/category" component={Category} />
             <PrivateRoute path="/product" component={Product} />
             <PrivateRoute path="/order" component={Order} />
 
