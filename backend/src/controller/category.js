@@ -28,9 +28,11 @@ exports.addCategory = (req, res) => {
     // parentId: req.body.parentId
   };
 
-  if (req.body.parentId) {
+  if (req.body) {
     categoryObj.parentId = req.body.parentId;
+    console.log(req.body.parentId)
   }
+  
 
   if (req.file) {
     categoryObj.categoryImage =

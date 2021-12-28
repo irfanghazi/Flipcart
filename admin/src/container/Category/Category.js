@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Container, Row ,Form} from 'react-bootstrap'
 import Layout from '../../components/Layout/Layout'
-import { getAllCategoryAction } from '../../redux/actions'
+import { getAllCategoryAction ,submitFormAction} from '../../redux/actions'
 import {Button,Modal} from "react-bootstrap"
 import Select from "react-select"
 
@@ -12,8 +12,17 @@ const Category = (props) => {
   const [category, setCategory] = useState('');
   const [categoryImage, setCategoryImage] = useState('');
   const [parentCategoryId, setParentCategoryId] = useState('');
+  const [updateId, setUpdateId] = useState('')
   
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{
+    let form  = new FormData()
+    form.append('parentId',updateId)
+    form.append('name',category)
+    form.append('categoryImage',categoryImage)
+  
+    dispatch(submitFormAction(form))
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
 
     const dispatch = useDispatch()
@@ -52,9 +61,17 @@ const Category = (props) => {
     })
 
     const filesSelected = (e)=>{
-     
-      setCategoryImage(e.target.files[0])
+     setCategoryImage(e.target.files[0])
       console.log("img",categoryImage)
+    }
+
+    const changeHandler = (parentCategoryId)=>{
+      setParentCategoryId(parentCategoryId)
+      const a  = parentCategoryId
+      console.log("a",a )
+    
+     setUpdateId( a[Object.keys(a)[0]])
+     
     }
     
     const formSubmit = (e)=>{
@@ -62,7 +79,7 @@ const Category = (props) => {
     }
 
      
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAllCategoryAction())
     },[])
     
@@ -86,8 +103,9 @@ const Category = (props) => {
                 </Col>
               </Row>
               </Container>
-          {/* Modal  ******************************************************************************/}
 
+
+          {/* Modal  ******************************************************************************/}
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -107,6 +125,8 @@ const Category = (props) => {
                     <Select
                       placeholder="Select Category"
                       options={categoryList}
+                      value = {parentCategoryId}
+                      onChange = {changeHandler}
                     />
                   </div>
 
